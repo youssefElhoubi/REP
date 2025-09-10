@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class properties extends Model
 {
@@ -24,5 +25,8 @@ class properties extends Model
     }
     public function category():BelongsTo{
         return $this->belongsTo(categories::class,"category_id");
+    }
+    public function images():HasMany{
+        return $this->hasMany(property_images::class,"property_id");
     }
 }
