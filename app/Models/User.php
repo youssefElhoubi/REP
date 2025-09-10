@@ -29,4 +29,13 @@ class User extends Authenticatable
     public function properties():HasMany{
         return $this->hasMany(properties::class,"user_id");
     }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
