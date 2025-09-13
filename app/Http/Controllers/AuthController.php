@@ -16,14 +16,14 @@ class AuthController extends Controller
             'name'=>'required|string|max:255',
             'email'=>'required|email|unique:users',
             'password'=>'required|string|min:6',
-            'role'=>'required|in:user,owner,admin',
+            // 'role'=>'required|in:user,owner,admin',
         ]);
 
         $user = User::create([
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
-            'role'=>$request->role,
+            'role' => 'admin',
         ]);
 
         $token = JWTAuth::fromUser($user);
