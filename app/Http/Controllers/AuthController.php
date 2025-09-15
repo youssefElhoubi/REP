@@ -16,14 +16,18 @@ class AuthController extends Controller
             'name'=>'required|string|max:255',
             'email'=>'required|email|unique:users',
             'password'=>'required|string|min:6',
-            // 'role'=>'required|in:user,owner,admin',
+            'password_confirmation'=> 'required|same:password',
+'phone_number' => 'nullable|string|max:30'            // 'role'=>'required|in:user,owner,admin',
         ]);
 
         $user = User::create([
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
+            'password_confirmation'=> Hash::make($request->password_confirmation),
             'role' => 'admin',
+            'phone_number' => $request->phone_number ?? null,
+
         ]);
 
         $token = JWTAuth::fromUser($user);
@@ -33,7 +37,7 @@ class AuthController extends Controller
     // Login
     public function login(Request $request)
     {
-        $credentials = $request->only('email','password');
+        $credentials = $request->only('email','password' );
 
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error'=>'Invalid credentials'],401);

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone_number')->nullable();
+            $table->boolean('is_phone_verified')->default(false);
             $table->enum(  'role', ['user', 'owner', 'admin'])->default('user');
             $table->timestamps();
         });
